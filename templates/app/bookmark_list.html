@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'url_create_view' %}">Shorten URL</a>
+
+<h1>URL Shortener</h1>
+
+{% for url in object_list %}
+  <a href="{{ url.url_page }}">{{ url.new_url }}</a> - {{ url.description }} {{ url.created }}, {{ url.user }} <br>
+{% endfor %}
+{% endblock %}
