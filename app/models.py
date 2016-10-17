@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from random import choice
-from string import ascii_lowercase, ascii_uppercase, digits
+
 
 # Create your models here.
 class Bookmark(models.Model):
@@ -10,13 +9,7 @@ class Bookmark(models.Model):
     description = models.CharField(max_length=150, null=True, blank=True)
     created = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
-
-    @property
-    def new_url(self):
-        key = ''
-        for i in range(6):
-            self.title += choice(ascii_lowercase + ascii_uppercase + digits)
-        return self.title
+    new_url = models.CharField(max_length=6, null=True, blank=True)
 
     def __str__(self):
         return self.url_page
