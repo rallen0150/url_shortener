@@ -29,10 +29,10 @@
         <div class="col-md-8">
           <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>{{ url.title }}</h3>
+                <h3>{{ url.title }}</h3> <a href="{% url 'url_update_view' url.id %}">Update</a>
             </div>
             <div class="panel-body">
-              <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a> - <a href="{% url 'url_update_view' url.id %}">Update</a>
+              <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a>
               <button type="button" class="btn btn-primary">Click Count <span class="badge">{{ url.click_count }}</span></button> <br>
               Created by: <b>{{ url.user }}</b> <br>
               Description: {{ url.description }}
