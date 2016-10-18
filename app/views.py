@@ -34,7 +34,7 @@ class URLCreateView(CreateView):
         return super().form_valid(form)
 
 class PageView(View):
-    model = Bookmark
-
     def get(self, request, new_url):
-        return HttpResponseRedirect(Bookmark.objects.get(new_url=new_url).url_page)
+        x = Bookmark.objects.get(new_url=new_url)
+        Click.objects.create(bookmark=x)
+        return HttpResponseRedirect(x.url_page)

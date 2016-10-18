@@ -6,6 +6,7 @@
 <h1>URL Shortener</h1>
 
 {% for url in object_list %}
-  <a href="{{ url.url_page }}">localhost:8000/{{ url.new_url }}</a> - {{ url.title }} {{ url.created }}, {{ url.user }} <br>
+  <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a> - {{ url.title }} {{ url.created }}, {{ url.user }}
+  {{ url.click_count }}<br>
 {% endfor %}
 {% endblock %}

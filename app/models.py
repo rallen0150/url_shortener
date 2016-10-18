@@ -11,6 +11,13 @@ class Bookmark(models.Model):
     user = models.ForeignKey(User)
     new_url = models.CharField(max_length=6, null=True, blank=True)
 
+    class Meta:
+        ordering = ("-created", )
+
+    @property
+    def click_count(self):
+        return self.click_set.count()
+
     def __str__(self):
         return self.title
 
