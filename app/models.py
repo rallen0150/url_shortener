@@ -12,7 +12,7 @@ class Bookmark(models.Model):
     new_url = models.CharField(max_length=6, null=True, blank=True)
 
     def __str__(self):
-        return self.url_page
+        return self.title
 
 class Click(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
