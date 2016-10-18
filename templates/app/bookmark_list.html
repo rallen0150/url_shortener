@@ -26,7 +26,7 @@
 
   {% for url in object_list %}
     {% if url.user == request.user %}
-        <div class="col-md-7">
+        <div class="col-md-8">
           <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>{{ url.title }}</h3>
@@ -44,7 +44,7 @@
         </div>
 
     {% elif url.public == True %}
-        <div class="col-md-7">
+        <div class="col-md-8">
           <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>{{ url.title }}</h3>
