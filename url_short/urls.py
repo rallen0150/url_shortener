@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from app.views import UserCreateView, URLCreateView, URLView, PageView
+from app.views import UserCreateView, URLCreateView, URLView, PageView, URLUpdateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('django.contrib.auth.urls')),
+    url(r'^', include('django.contrib.auth.urls'), name="login"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
     url(r'^$', URLView.as_view(), name="url_view"),
     url(r'^url_short/$', URLCreateView.as_view(), name="url_create_view"),
-    url(r'^(?P<new_url>\w+)/$', PageView.as_view(), name="page_view")
+    url(r'^(?P<new_url>\w+)/$', PageView.as_view(), name="page_view"),
+    url(r'^(?P<pk>\d+)/update/$', URLUpdateView.as_view(), name="url_update_view"),
 ]

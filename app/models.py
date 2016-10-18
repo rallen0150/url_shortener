@@ -10,9 +10,10 @@ class Bookmark(models.Model):
     created = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
     new_url = models.CharField(max_length=6, null=True, blank=True)
+    public = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ("-created", )
+        ordering = ("title", )
 
     @property
     def click_count(self):

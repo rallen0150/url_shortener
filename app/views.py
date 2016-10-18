@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.views import View
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.models import User
 from random import choice
 from string import ascii_lowercase, ascii_uppercase, digits
@@ -23,7 +23,7 @@ class UserCreateView(CreateView):
 class URLCreateView(CreateView):
     model = Bookmark
     success_url = "/"
-    fields = ('title', 'url_page', 'description')
+    fields = ('title', 'url_page', 'description', 'public')
 
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -38,3 +38,8 @@ class PageView(View):
         x = Bookmark.objects.get(new_url=new_url)
         Click.objects.create(bookmark=x)
         return HttpResponseRedirect(x.url_page)
+
+class URLUpdateView(UpdateView):
+    model = Bookmark
+    success_url = "/"
+    fields = ('title', 'description', 'public')

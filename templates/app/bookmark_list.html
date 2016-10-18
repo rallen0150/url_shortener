@@ -1,12 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'url_create_view' %}">Shorten URL</a>
+<h1>URL Shortener</h1> <br>
 
-<h1>URL Shortener</h1>
+<div class="row">
+  <div class="col-md-4">
+      {% if request.user.is_authenticated %}
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Shorten URL</h3>
+          </div>
+          <div class="panel-body">
+              <form class="" action="{% url 'url_create_view' %}" method="post">
+                  <input type="text" name="title" value="" placeholder="title">
+                  <input type="text" name="url" value="" placeholder="url">
+                  <input type="text" name="description" value="" placeholder="description">
+                  Public <input type="checkbox" name="public" value="True">
+                  <input type="submit" name="name" value="Shorten!">
+                  {% csrf_token %}
+              </form>
+          </div>
+      </div>
+      {% endif %}
+  </div>
 
-{% for url in object_list %}
-  <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a> - {{ url.title }} {{ url.created }}, {{ url.user }}
-  {{ url.click_count }}<br>
-{% endfor %}
+  {% for url in object_list %}
+    {% if url.user == request.user %}
+        <div class="col-md-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{ url.title }}</h3>
+            </div>
+            <div class="panel-body">
+              <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a> - <a href="{% url 'url_update_view' url.id %}">Update</a>
+              <button type="button" class="btn btn-primary">Click Count <span class="badge">{{ url.click_count }}</span></button> <br>
+              Created by: <b>{{ url.user }}</b> <br>
+              Description: {{ url.description }}
+            </div>
+            <div class="panel-footer">
+              Created on: {{ url.created }}
+            </div>
+          </div>
+        </div>
+
+    {% elif url.public == True %}
+        <div class="col-md-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{ url.title }}</h3>
+            </div>
+            <div class="panel-body">
+              <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a>
+              <button type="button" class="btn btn-primary">Click Count <span class="badge">{{ url.click_count }}</span></button> <br>
+              Created by: <b>{{ url.user }}</b> <br>
+              Description: {{ url.description }}
+            </div>
+            <div class="panel-footer">
+              Created on: {{ url.created }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}

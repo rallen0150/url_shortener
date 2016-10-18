@@ -5,16 +5,32 @@
     <meta charset="utf-8">
     <title>URL Shortener</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
+
+  <style media="screen">
+    .col-md-4 {
+      float: right;
+    }
+    .btn {
+      float: right;
+    }
+  </style>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="nav navbar-nav">
+            {% if not request.user.is_authenticated %}
+              <li><a href="{% url 'user_create_view' %}">Create User</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+            {% else %}
+              <li><a href="{% url 'logout' %}?next={% url 'url_view' %}">Logout</a></li>
+              <li><a href="{% url 'url_create_view' %}">Shorten URL</a></li>
+            {% endif %}
+            <p class="navbar-text">Signed in as <b>{{ request.user }}</b></p> <br>
+        </div>
+      </div>
+    </nav>
       <div class="container">
-        {% if not request.user.is_authenticated %}
-          <a href="{% url 'user_create_view' %}">Create User</a>
-          <a href="{% url 'login' %}">Login</a>
-        {% else %}
-          <a href="{% url 'logout' %}?next={% url 'url_view' %}">Logout</a>
-        {% endif %}
-
           {% block content %}
 
           {% endblock %}
