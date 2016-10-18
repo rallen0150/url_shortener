@@ -37,5 +37,4 @@ class PageView(View):
     model = Bookmark
 
     def get(self, request, new_url):
-        x = self.kwargs['new_url']
-        return HttpResponseRedirect(Bookmark.objects.get(new_url=x).url_page)
+        return HttpResponseRedirect(Bookmark.objects.get(new_url=new_url).url_page)
