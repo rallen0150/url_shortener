@@ -8,14 +8,14 @@
       {% if request.user.is_authenticated %}
       <div class="panel panel-default">
           <div class="panel-heading">
-              <h3 class="panel-title">Shorten URL</h3>
+              <h3 class="panel-title" id="cent">Shorten URL</h3>
           </div>
           <div class="panel-body">
               <form class="" action="{% url 'url_create_view' %}" method="post">
                   <input type="text" name="title" value="" placeholder="title">
                   <input type="text" name="url" value="" placeholder="url">
                   <input type="text" name="description" value="" placeholder="description">
-                  Public <input type="checkbox" name="public" value="True">
+                  Public <input type="checkbox" name="public" value="True"> <br>
                   <input type="submit" name="name" value="Shorten!">
                   {% csrf_token %}
               </form>
@@ -29,7 +29,7 @@
         <div class="col-md-8">
           <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>{{ url.title }}</h3> <a href="{% url 'url_update_view' url.id %}">Update</a>
+                <h3>{{ url.title }}</h3> <a href="{% url 'url_update_view' url.id %}">Update <span class="glyphicon glyphicon-pencil"></span></a>
             </div>
             <div class="panel-body">
               <a href="{{ url.new_url }}">localhost:8000/{{ url.new_url }}</a>

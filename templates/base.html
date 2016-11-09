@@ -23,6 +23,12 @@
       color: black;
       background-color: white;
     }
+    #cent {
+      text-align: center;
+    }
+    .user {
+      color: white;
+    }
   </style>
   </head>
   <body>
@@ -30,13 +36,13 @@
       <div class="container-fluid">
         <div class="nav navbar-nav">
             {% if not request.user.is_authenticated %}
-              <li><a href="{% url 'user_create_view' %}">Create User</a></li>
-              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'user_create_view' %}">Create User <span class="glyphicon glyphicon-user"></span></a></li>
+              <li><a href="{% url 'login' %}">Login <span class="glyphicon glyphicon-user"></span></a></li>
             {% else %}
-              <li><a href="{% url 'logout' %}?next={% url 'url_view' %}">Logout</a></li>
               <li><a href="{% url 'url_create_view' %}">Shorten URL</a></li>
+              <li><a href="{% url 'logout' %}?next={% url 'url_view' %}">Logout <span class="glyphicon glyphicon-off"></span></a></li>
             {% endif %}
-            <p class="navbar-text">Signed in as <b>{{ request.user }}</b></p> <br>
+            <p class="navbar-text navbar-right">Signed in as <b class="user">{{ request.user }}</b></p>
         </div>
       </div>
     </nav>
