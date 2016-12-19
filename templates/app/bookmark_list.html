@@ -12,12 +12,12 @@
             </div>
             <div class="panel-body">
                 <form class="" action="{% url 'url_create_view' %}" method="post">
-                    <input type="text" name="title" value="" placeholder="title">
-                    <input type="text" name="url_page" value="" placeholder="url"><br>
-                    <input type="text" name="description" value="" placeholder="description">
-                    <input type="checkbox" name="public" value="True">Public? <br>
-                    <button id="log" type="submit" class="btn btn-success">Shorten!</button>
-                    {% csrf_token %}
+                  {% csrf_token %}
+                  <input type="text" name="title" value="" placeholder="title">
+                  <input type="url" name="url_page" value="" placeholder="url"><br>
+                  <input type="text" name="description" value="" placeholder="description">
+                  <input type="checkbox" name="public" value="True">Public? <br>
+                  <button id="log" type="submit" class="btn btn-success">Shorten!</button>
                 </form>
             </div>
         </div>
