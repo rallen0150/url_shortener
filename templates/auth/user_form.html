@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form class="" action="" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="" value="Create User!">
-</form>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h1 id="cent">Create New User</h1>
+      </div>
+      <div class="panel-body">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button id="log" type="submit" class="btn btn-success btn-block">New User!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

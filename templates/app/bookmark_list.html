@@ -1,33 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>URL Shortener</h1> <br>
+<h1 id="cent">URL Shortener</h1> <br>
 
 <div class="row">
   <div class="col-md-4">
       {% if request.user.is_authenticated %}
-      <div class="panel panel-default">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="cent">Shorten URL</h3>
+            </div>
+            <div class="panel-body">
+                <form class="" action="{% url 'url_create_view' %}" method="post">
+                    <input type="text" name="title" value="" placeholder="title">
+                    <input type="text" name="url" value="" placeholder="url"><br>
+                    <input type="text" name="description" value="" placeholder="description">
+                    <input type="checkbox" name="public" value="True">Public? <br>
+                    <button id="log" type="submit" class="btn btn-success">Shorten!</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+      {% else %}
+        <div class="panel panel-success">
           <div class="panel-heading">
-              <h3 class="panel-title" id="cent">Shorten URL</h3>
+            <h3 class="panel-title" id="cent">Login</h3>
           </div>
           <div class="panel-body">
-              <form class="" action="{% url 'url_create_view' %}" method="post">
-                  <input type="text" name="title" value="" placeholder="title">
-                  <input type="text" name="url" value="" placeholder="url">
-                  <input type="text" name="description" value="" placeholder="description">
-                  Public <input type="checkbox" name="public" value="True"> <br>
-                  <input type="submit" name="name" value="Shorten!">
-                  {% csrf_token %}
-              </form>
+            <form class="" action="{% url 'login' %}" method="post">
+              {% csrf_token %}
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <input type="text" name="username" placeholder="Username"><br>
+                </div>
+              </div>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-lock"></span>
+                  <input type="password" name="password" placeholder="Password"><br>
+                </div>
+              </div>
+              <button id="log" type="submit" class="btn btn-success btn-block">Login</button>
+            </form>
           </div>
-      </div>
+        </div>
       {% endif %}
   </div>
 
   {% for url in object_list %}
     {% if url.user == request.user %}
         <div class="col-md-8">
-          <div class="panel panel-default">
+          <div class="panel panel-info">
             <div class="panel-heading">
                 <h3>{{ url.title }}</h3> <a href="{% url 'url_update_view' url.id %}">Update <span class="glyphicon glyphicon-pencil"></span></a>
             </div>
@@ -45,7 +69,7 @@
 
     {% elif url.public == True %}
         <div class="col-md-8">
-          <div class="panel panel-default">
+          <div class="panel panel-info">
             <div class="panel-heading">
                 <h3>{{ url.title }}</h3>
             </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -14,6 +14,11 @@ from django.http import HttpResponseRedirect
 
 class URLView(ListView):
     model = Bookmark
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['login'] = AuthenticationForm
+        return context
 
 class UserCreateView(CreateView):
     model = User

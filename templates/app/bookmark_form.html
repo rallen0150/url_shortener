@@ -2,11 +2,21 @@
 
 {% block content %}
 {% if request.user.is_authenticated %}
-  <h1>Enter a URL!</h1>
-  <form class="" action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" name="" value="Submit">
-  </form>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 id="cent">Enter a URL!</h1>
+      </div>
+      <div class="panel-body">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button id="log" type="submit" class="btn btn-success">Shorten!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endif %}
 {% endblock %}
