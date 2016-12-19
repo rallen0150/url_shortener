@@ -11,7 +11,10 @@
       <div class="panel-body">
         <form class="" action="" method="post">
           {% csrf_token %}
-          {{ form.as_p }}
+          Title: <input type="text" name="title" value="" placeholder="title"> <br>
+          URL Page: <input type="url" name="url_page" value="" placeholder="url" required="true"><br>
+          Description: <input type="text" name="description" value="" placeholder="description"> <br>
+          <input type="checkbox" name="public" value="True">Public? <br>
           <button id="log" type="submit" class="btn btn-success">Shorten!</button>
         </form>
       </div>
