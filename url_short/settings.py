@@ -25,7 +25,7 @@ SECRET_KEY = '*fd$x*x_m^s8)sw0ot&z9d$=)-3%7jxexo++jumnfca=$ti(ep'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rallen-url-short.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -73,6 +73,7 @@ WSGI_APPLICATION = 'url_short.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
     'default': {
@@ -80,6 +81,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+database_config = dj_database_url.config()
+if database_config:
+    DATABASES['default'] = database_config
 
 
 # Password validation
@@ -120,3 +125,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
