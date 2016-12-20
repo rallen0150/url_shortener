@@ -1,9 +1,15 @@
 from django.shortcuts import render
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login
+
 from django.views import View
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.urls import reverse_lazy
+
 from django.contrib.auth.models import User
+
 from random import choice
 from string import ascii_lowercase, ascii_uppercase, digits
 
@@ -20,14 +26,26 @@ class URLView(ListView):
         context['login'] = AuthenticationForm
         return context
 
-class UserCreateView(CreateView):
+class UserCreateView(FormView):
+    template_name = "auth/user_form.html"
     model = User
     form_class = UserCreationForm
-    success_url = "/"
+    success_url = reverse_lazy('url_view')
+
+    def form_valid(self, form):
+      #save the new user first
+      form.save()
+      #get the username and password
+      username = self.request.POST['username']
+      password = self.request.POST['password1']
+      #authenticate user then login
+      user = authenticate(username=username, password=password)
+      login(self.request, user)
+      return super(UserCreateView, self).form_valid(form)
 
 class URLCreateView(CreateView):
     model = Bookmark
-    success_url = "/"
+    success_url = reverse_lazy('url_view')
     fields = ('title', 'url_page', 'description', 'public')
 
     def form_valid(self, form):
@@ -46,5 +64,5 @@ class PageView(View):
 
 class URLUpdateView(UpdateView):
     model = Bookmark
-    success_url = "/"
+    success_url = reverse_lazy('url_view')
     fields = ('title', 'description', 'public')
